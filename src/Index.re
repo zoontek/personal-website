@@ -1,5 +1,7 @@
+open Belt;
+
 [%bs.raw {|require('normalize.css')|}];
-[%bs.raw {|require('./static/css/reset.css')|}];
+[%bs.raw {|require('./static/css/global.css')|}];
 
 [@bs.module]
 external quasimodaRegular: string = "./static/fonts/quasimoda_regular.woff";
@@ -19,6 +21,13 @@ let fonts = [|
   "\"Segoe UI Symbol\"",
 |];
 
+let lastIndex = Array.size(fonts) - 1;
+
+let fontFamily =
+  Array.reduceWithIndex(fonts, "", (acc, font, index) =>
+    acc ++ font ++ (index !== lastIndex ? "," : "")
+  );
+
 Css.(
   fontFace(
     ~fontFamily="Quasimoda",
@@ -34,7 +43,7 @@ Css.(
     ~fontWeight=`num(700),
     (),
   ),
-  global("body", [fontFamily(Js.Array.join(fonts))]),
+  global("body", [fontFamily(fontFamily)]),
 );
 
 ReactDOMRe.renderToElementWithId(<App />, "root");
