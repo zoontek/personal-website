@@ -1,10 +1,10 @@
 [%bs.raw {|require('normalize.css')|}];
-[%bs.raw {|require('./assets/css/reset.css')|}];
+[%bs.raw {|require('./static/css/reset.css')|}];
 
 [@bs.module]
-external quasimodaRegular: string = "./assets/fonts/quasimoda_regular.woff";
+external quasimodaRegular: string = "./static/fonts/quasimoda_regular.woff";
 [@bs.module]
-external quasimodaBold: string = "./assets/fonts/quasimoda_bold.woff";
+external quasimodaBold: string = "./static/fonts/quasimoda_bold.woff";
 
 let fonts = [|
   "Quasimoda",
