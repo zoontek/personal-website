@@ -41,10 +41,7 @@ Css.(
     ~fontWeight=`num(700),
     (),
   ),
-  global(
-    "body",
-    [fontFamily(bodyFontFamily), fontSize(48->px), fontWeight(`bold)],
-  ),
+  global("body", [fontFamily(bodyFontFamily)]),
 );
 
 ReactDOMRe.renderToElementWithId(<App />, "root");

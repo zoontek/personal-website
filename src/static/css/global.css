@@ -3,7 +3,6 @@ html {
   box-sizing: border-box;
   -moz-tab-size: 2;
   tab-size: 2;
-  word-break: break-all;
 }
 
 *,
