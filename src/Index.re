@@ -21,11 +21,9 @@ let fonts = [|
   "\"Segoe UI Symbol\"",
 |];
 
-let lastIndex = Array.size(fonts) - 1;
-
-let fontFamily =
+let bodyFontFamily =
   Array.reduceWithIndex(fonts, "", (acc, font, index) =>
-    acc ++ font ++ (index !== lastIndex ? "," : "")
+    acc ++ font ++ (index !== Array.size(fonts) - 1 ? "," : "")
   );
 
 Css.(
@@ -43,7 +41,7 @@ Css.(
     ~fontWeight=`num(700),
     (),
   ),
-  global("body", [fontFamily(fontFamily)]),
+  global("body", [fontFamily(bodyFontFamily)]),
 );
 
 ReactDOMRe.renderToElementWithId(<App />, "root");
