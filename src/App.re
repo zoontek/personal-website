@@ -13,7 +13,7 @@ let make = _children => {
     <h1 className=Styles.title>
       {ReasonReact.string("Hi, I'm ")}
       <span className=Styles.name>
-        {ReasonReact.string({js|Mathieu Acthernoene|js})}
+        {ReasonReact.string("Mathieu Acthernoene")}
       </span>
     </h1>,
 };
