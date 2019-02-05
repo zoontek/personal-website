@@ -4,9 +4,9 @@ open Belt;
 [%bs.raw {|require('./static/css/global.css')|}];
 
 [@bs.module]
-external quasimodaRegular: string = "./static/fonts/quasimoda_regular.woff";
+external quasimodaRegular: string = "./static/fonts/Quasimoda-Regular.woff";
 [@bs.module]
-external quasimodaBold: string = "./static/fonts/quasimoda_bold.woff";
+external quasimodaBold: string = "./static/fonts/Quasimoda-Bold.woff";
 
 let fonts = [|
   "Quasimoda",
@@ -41,7 +41,10 @@ Css.(
     ~fontWeight=`num(700),
     (),
   ),
-  global("body", [fontFamily(bodyFontFamily)]),
+  global(
+    "body",
+    [fontFamily(bodyFontFamily), fontSize(48->px), fontWeight(`bold)],
+  ),
 );
 
 ReactDOMRe.renderToElementWithId(<App />, "root");
