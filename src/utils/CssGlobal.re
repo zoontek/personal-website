@@ -60,13 +60,14 @@ global(
 global(
   "body",
   [
-    backgroundColor(white),
+    backgroundColor(Theme.whiteColor),
     display(`flex),
     flexDirection(`column),
     fontFamily(Theme.baseFontFamily),
     lineHeight(`abs(1.65)),
     // minHeight(100.->vh),
     overflowX(`hidden),
+    padding(16->px),
     unsafe("WebkitFontSmoothing", "antialiased"),
     unsafe("MozOsxFontSmoothing", "grayscale"),
   ],
@@ -98,6 +99,11 @@ global(
 
 global("#root", [display(`flex), flexDirection(`column), flexGrow(1.)]);
 global("code, kbd, pre, samp", [fontFamily(Theme.monospaceFontFamily)]);
+
+global(
+  "img, canvas, iframe, video, svg, select, textarea",
+  [maxWidth(100.->pct)],
+);
 
 global(
   "audio, canvas, iframe, img, svg, video",
