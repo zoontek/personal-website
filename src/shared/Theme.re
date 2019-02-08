@@ -9,3 +9,6 @@ let titleColor = hex("3c3c4e");
 let whiteColor = hex("f4f6f6");
 
 let baseFontSize = 18->px;
+
+let smBreakPoint = "(min-width: 768px)";
+let xlBreakPoint = "(min-width: 1440px)";

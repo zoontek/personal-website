@@ -10,16 +10,34 @@ let component = React.reducerComponent("App");
 module Styles = {
   open Css;
 
-  let hero = style([backgroundColor(Theme.primaryColor)]);
+  let hero =
+    style([backgroundColor(Theme.primaryColor), borderRadius(2->px)]);
+
+  let heroContent =
+    style([
+      maxWidth(1440->px),
+      alignSelf(`center),
+      paddingLeft(24->px),
+      paddingRight(24->px),
+      media(
+        Theme.smBreakPoint,
+        [paddingLeft(40->px), paddingRight(40->px)],
+      ),
+    ]);
 
   let header =
     style([
       display(`flex),
-      paddingBottom(32->px),
-      paddingTop(32->px),
+      paddingTop(24->px),
+      paddingBottom(24->px),
       media(
-        "(min-width: 768px)",
-        [flexDirection(`row), justifyContent(`spaceBetween)],
+        Theme.smBreakPoint,
+        [
+          flexDirection(`row),
+          justifyContent(`spaceBetween),
+          paddingTop(32->px),
+          paddingBottom(32->px),
+        ],
       ),
     ]);
 
@@ -38,9 +56,9 @@ module Styles = {
       flex(1),
       flexDirection(`row),
       flexWrap(`wrap),
-      marginTop(16->px),
+      marginTop(12->px),
       media(
-        "(min-width: 768px)",
+        Theme.smBreakPoint,
         [marginTop(0->px), justifyContent(`flexEnd)],
       ),
     ]);
@@ -56,10 +74,7 @@ module Styles = {
       textDecoration(`none),
       textTransform(`uppercase),
       zIndex(1),
-      media(
-        "(min-width: 768px)",
-        [marginLeft(32->px), marginRight(0->px)],
-      ),
+      media(Theme.smBreakPoint, [marginLeft(32->px), marginRight(0->px)]),
       before([
         unsafe("content", "''"),
         position(`absolute),
@@ -83,21 +98,17 @@ module Styles = {
       ),
     ]);
 
-  let heroContent =
-    style([
-      borderRadius(2->px),
-      flexWrap(`wrap),
-      media("(min-width: 992px)", [flexDirection(`row)]),
-    ]);
+  let introAndIllustration =
+    style([media(Theme.smBreakPoint, [flexDirection(`row)])]);
 
-  let introContainer =
+  let introContent =
     style([
       flex(4),
       justifyContent(`center),
       paddingTop((100.0 /. (1440.0 /. 144.0))->vw),
       paddingBottom((100.0 /. (1440.0 /. 192.0))->vw),
       media(
-        "(min-width: 1440px)",
+        Theme.xlBreakPoint,
         [paddingTop(144->px), paddingBottom(192->px)],
       ),
     ]);
@@ -107,9 +118,11 @@ module Styles = {
   let illustrationContainer =
     style([
       flex(6),
+      marginLeft((-72)->px),
+      marginRight((-72)->px),
       media(
-        "(max-width: 992px)",
-        [marginLeft((-96)->px), marginRight((-96)->px)],
+        Theme.smBreakPoint,
+        [marginLeft((-0)->px), marginRight((-0)->px)],
       ),
     ]);
 
@@ -117,7 +130,7 @@ module Styles = {
     style([
       marginBottom((-2.5)->vw),
       media(
-        "(min-width: 992px)",
+        Theme.smBreakPoint,
         [
           position(`absolute),
           marginBottom(0->px),
@@ -125,7 +138,20 @@ module Styles = {
           bottom((-1.4)->vw),
         ],
       ),
-      media("(min-width: 1440px)", [bottom((-22)->px)]),
+      media(Theme.xlBreakPoint, [bottom((-22)->px)]),
+    ]);
+
+  let contentBlock =
+    style([
+      maxWidth(1440->px),
+      width(100.->pct),
+      alignSelf(`center),
+      paddingLeft(24->px),
+      paddingRight(24->px),
+      media(
+        Theme.smBreakPoint,
+        [paddingLeft(40->px), paddingRight(40->px)],
+      ),
     ]);
 };
 
@@ -140,117 +166,118 @@ let make = _children => {
     self.send(SwapEmail);
   },
   render: self =>
-    <View className=Styles.hero>
-      <View
-        className=Css.(
-          style([
-            maxWidth(1440->px),
-            alignSelf(`center),
-            paddingLeft(40->px),
-            paddingRight(40->px),
-          ])
-        )>
-        <View role=Banner className=Styles.header>
-          <h1 className=Styles.websiteTitle>
-            {React.string(Content.websiteTitle)}
-          </h1>
-          <View role=Navigation className=Styles.menuNav>
-            <View role=List className=Styles.menuList>
-              <li>
-                <Link
-                  href={"mailto:" ++ self.state.email}
-                  className=Styles.menuLink>
-                  {React.string("contact")}
-                </Link>
-              </li>
-              <li>
-                <Link href=Content.githubUrl className=Styles.menuLink>
-                  {React.string("github")}
-                </Link>
-              </li>
-              <li>
-                <Link href=Content.twitterUrl className=Styles.menuLink>
-                  {React.string("twitter")}
-                </Link>
-              </li>
+    <>
+      <View className=Styles.hero>
+        <View className=Styles.heroContent>
+          <View role=Banner className=Styles.header>
+            <h1 className=Styles.websiteTitle>
+              {React.string(Content.websiteTitle)}
+            </h1>
+            <View role=Navigation className=Styles.menuNav>
+              <View role=List className=Styles.menuList>
+                <li>
+                  <Link
+                    href={"mailto:" ++ self.state.email}
+                    className=Styles.menuLink>
+                    {React.string("contact")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href=Content.githubUrl className=Styles.menuLink>
+                    {React.string("github")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href=Content.twitterUrl className=Styles.menuLink>
+                    {React.string("twitter")}
+                  </Link>
+                </li>
+              </View>
+            </View>
+          </View>
+          <View className=Styles.introAndIllustration>
+            <View className=Styles.introContent>
+              <Title level=H1> {React.string({js|Hello !|js})} </Title>
+              <Space height=24 />
+              <p className=Styles.text>
+                {React.string(
+                   "I am Mathieu Acthernoene (aka @zoontek), a front-end developer living in Paris, France. I currently work at BeOp, where we build a third-party solution for editors on the web, enabling them to create interactive.",
+                 )}
+              </p>
+            </View>
+            <Space height=32 />
+            <View className=Styles.illustrationContainer>
+              <img className=Styles.illustration src=illustration />
             </View>
           </View>
         </View>
-        <View className=Styles.heroContent>
-          <View className=Styles.introContainer>
-            <Title level=H1> {React.string({js|Hello !|js})} </Title>
-            <Space height=24 />
-            <p className=Styles.text>
-              {React.string(
-                 "I am Mathieu Acthernoene (aka @zoontek), a front-end developer living in Paris, France. I currently work at BeOp, where we build a third-party solution for editors on the web, enabling them to create interactive.",
-               )}
-            </p>
-          </View>
-          <Space height=32 width=48 />
-          <View className=Styles.illustrationContainer>
-            <img className=Styles.illustration src=illustration />
-          </View>
+      </View>
+      <Space height=128 />
+      <View className=Styles.contentBlock>
+        <Title level=H2> {React.string("Things I work with")} </Title>
+        <Space height=24 />
+        <View role=List className=Styles.text>
+          <li> {React.string("React Native")} </li>
+          <li> {React.string("React")} </li>
+          <li> {React.string("gRPC")} </li>
+          <li> {React.string("Jest")} </li>
+          <li> {React.string("Sketch")} </li>
+          <li> {React.string("JavaScript")} </li>
+          <li> {React.string("TypeScript")} </li>
+          <li> {React.string("Flow")} </li>
         </View>
       </View>
-    </View>,
-  // <View className=Css.({style([padding(64->px)])})>
-  //   <Title level=H2> {React.string("Things I work with")} </Title>
-  //   <View role=List className=Styles.text>
-  //     <li> {React.string("- React Native")} </li>
-  //     <li> {React.string("- React")} </li>
-  //     <li> {React.string("- gRPC")} </li>
-  //     <li> {React.string("- Jest")} </li>
-  //     <li> {React.string("- Sketch")} </li>
-  //     <li> {React.string("- JavaScript")} </li>
-  //     <li> {React.string("- TypeScript")} </li>
-  //     <li> {React.string("- Flow")} </li>
-  //   </View>
-  // </View>
-  // <View className=Css.({style([padding(64->px)])})>
-  //   <Title level=H2> {React.string("Things I work on")} </Title>
-  //   <View role=List className=Styles.text>
-  //     <li> {React.string("- Scaleway Control Panel")} </li>
-  //     <li> {React.string("- Wulo mobile app")} </li>
-  //     <li> {React.string("- Colisweb mobile app")} </li>
-  //     <li> {React.string("- Onemore agency")} </li>
-  //   </View>
-  // </View>
-  // <View className=Css.({style([padding(64->px)])})>
-  //   <Title level=H2> {React.string("Talks I gave")} </Title>
-  //   <View role=List className=Styles.text>
-  //     <li>
-  //       {React.string(
-  //          "- Modern services communication with gRPC (ParisJS)",
-  //        )}
-  //     </li>
-  //     <li>
-  //       {React.string(
-  //          "- Enhance your JavaScript with Flow (Algolia TechLunch, Take Off Talks)",
-  //        )}
-  //     </li>
-  //     <li>
-  //       {React.string("- Your first React Native app (ChtiJS #16)")}
-  //     </li>
-  //     <li>
-  //       {React.string("- Handle your app state with Redux (ChtiJS #15)")}
-  //     </li>
-  //     <li> {React.string("- Electron presentation (ChtiJS #14)")} </li>
-  //     <li>
-  //       {React.string(
-  //          "- React Motion: animations done right (WelshDesign #7)",
-  //        )}
-  //     </li>
-  //   </View>
-  // </View>
-  // <View className=Css.({style([padding(64->px)])})>
-  //   <Title level=H2> {React.string("Activities I enjoy")} </Title>
-  //   <View role=List className=Styles.text>
-  //     <li> {React.string("- Commuter bike")} </li>
-  //     <li> {React.string("- Swimming")} </li>
-  //     <li> {React.string("- Hiking")} </li>
-  //     <li> {React.string("- Podcasting")} </li>
-  //     <li> {React.string("- Climbing")} </li>
-  //   </View>
-  // </View>
-  // <View role=ContentInfo />
+      <Space height=72 />
+      <View className=Styles.contentBlock>
+        <Title level=H2> {React.string("Things I work on")} </Title>
+        <Space height=24 />
+        <View role=List className=Styles.text>
+          <li> {React.string("Scaleway Control Panel")} </li>
+          <li> {React.string("Wulo mobile app")} </li>
+          <li> {React.string("Colisweb mobile app")} </li>
+          <li> {React.string("Onemore agency")} </li>
+        </View>
+      </View>
+      <Space height=72 />
+      <View className=Styles.contentBlock>
+        <Title level=H2> {React.string("Talks I gave")} </Title>
+        <Space height=24 />
+        <View role=List className=Styles.text>
+          <li>
+            {React.string("Modern services communication with gRPC (ParisJS)")}
+          </li>
+          <li>
+            {React.string(
+               "Enhance your JavaScript with Flow (Algolia TechLunch, Take Off Talks)",
+             )}
+          </li>
+          <li>
+            {React.string("Your first React Native app (ChtiJS #16)")}
+          </li>
+          <li>
+            {React.string("Handle your app state with Redux (ChtiJS #15)")}
+          </li>
+          <li> {React.string("Electron presentation (ChtiJS #14)")} </li>
+          <li>
+            {React.string(
+               "React Motion: animations done right (WelshDesign #7)",
+             )}
+          </li>
+        </View>
+      </View>
+      <Space height=72 />
+      <View className=Styles.contentBlock>
+        <Title level=H2> {React.string("Activities I enjoy")} </Title>
+        <Space height=24 />
+        <View role=List className=Styles.text>
+          <li> {React.string("Commuter bike")} </li>
+          <li> {React.string("Swimming")} </li>
+          <li> {React.string("Hiking")} </li>
+          <li> {React.string("Podcasting")} </li>
+          <li> {React.string("Climbing")} </li>
+        </View>
+      </View>
+      <Space height=128 />
+      <View role=ContentInfo />
+    </>,
 };
