@@ -8,4 +8,4 @@ let textColor = hex("626174");
 let titleColor = hex("3c3c4e");
 let whiteColor = hex("f4f6f6");
 
-let baseFontSize = 19->px;
+let baseFontSize = 18->px;

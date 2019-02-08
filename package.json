@@ -11,7 +11,7 @@
     "bsb-watch": "bsb -make-world -w",
     "bsb-clean": "bsb -clean-world",
     "wbp-build": "NODE_ENV=production webpack",
-    "wbp-watch": "webpack-dev-server --open",
+    "wbp-watch": "webpack-dev-server --host 0.0.0.0 --open",
     "wbp-clean": "shx rm -rf build",
     "build": "npm run clean && npm run bsb-build && npm run wbp-build",
     "start": "concurrently npm:bsb-watch npm:wbp-watch",

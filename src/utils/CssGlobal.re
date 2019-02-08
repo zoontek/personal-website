@@ -64,10 +64,8 @@ global(
     display(`flex),
     flexDirection(`column),
     fontFamily(Theme.baseFontFamily),
+    letterSpacing((-0.02)->em),
     lineHeight(`abs(1.65)),
-    // minHeight(100.->vh),
-    overflowX(`hidden),
-    padding(16->px),
     unsafe("WebkitFontSmoothing", "antialiased"),
     unsafe("MozOsxFontSmoothing", "grayscale"),
   ],
@@ -97,7 +95,18 @@ global(
   [color(`currentColor), opacity(0.54)],
 );
 
-global("#root", [display(`flex), flexDirection(`column), flexGrow(1.)]);
+global(
+  "#root",
+  [
+    display(`flex),
+    flexDirection(`column),
+    flexGrow(1.),
+    overflowX(`hidden),
+    padding(16->px),
+    width(100.->pct),
+  ],
+);
+
 global("code, kbd, pre, samp", [fontFamily(Theme.monospaceFontFamily)]);
 
 global(

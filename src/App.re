@@ -14,14 +14,73 @@ module Styles = {
 
   let header =
     style([
-      alignItems(`center),
       display(`flex),
-      justifyContent(`spaceBetween),
-      paddingTop(32->px),
       paddingBottom(32->px),
-      paddingLeft(4->px),
-      paddingRight(4->px),
-      media("(min-width: 768px)", [flexDirection(`row)]),
+      paddingTop(32->px),
+      media(
+        "(min-width: 768px)",
+        [flexDirection(`row), justifyContent(`spaceBetween)],
+      ),
+    ]);
+
+  let websiteTitle =
+    style([
+      color(Theme.titleColor),
+      fontSize(Theme.baseFontSize),
+      fontWeight(`bold),
+    ]);
+
+  let menuNav = style([flexShrink(1)]);
+
+  let menuList =
+    style([
+      alignItems(`center),
+      flex(1),
+      flexDirection(`row),
+      flexWrap(`wrap),
+      marginTop(16->px),
+      media(
+        "(min-width: 768px)",
+        [marginTop(0->px), justifyContent(`flexEnd)],
+      ),
+    ]);
+
+  let menuLink =
+    style([
+      color(Theme.textColor),
+      letterSpacing(`normal),
+      opacity(0.9),
+      marginLeft(0->px),
+      marginRight(24->px),
+      position(`relative),
+      textDecoration(`none),
+      textTransform(`uppercase),
+      zIndex(1),
+      media(
+        "(min-width: 768px)",
+        [marginLeft(32->px), marginRight(0->px)],
+      ),
+      before([
+        unsafe("content", "''"),
+        position(`absolute),
+        borderRadius(2->px),
+        top(0->px),
+        bottom(4->px),
+        left((-4)->px),
+        right((-4)->px),
+        verticalAlign(`baseline),
+        zIndex(-1),
+        backgroundColor(hex("f2cc6c")),
+        transform(scaleY(0.)),
+        transformOrigin(50.->pct, 100.->pct),
+        transitionProperty("transform"),
+        transitionDuration(150),
+        transitionTimingFunction(`ease),
+      ]),
+      media(
+        "(hover: hover)",
+        [hover([before([transform(scaleY(0.4))])])],
+      ),
     ]);
 
   let heroContent =
@@ -43,14 +102,16 @@ module Styles = {
       ),
     ]);
 
-  let text =
-    style([
-      fontSize(Theme.baseFontSize),
-      color(Theme.textColor),
-      letterSpacing((-0.02)->em),
-    ]);
+  let text = style([fontSize(Theme.baseFontSize), color(Theme.textColor)]);
 
-  let illustrationContainer = style([flex(6)]);
+  let illustrationContainer =
+    style([
+      flex(6),
+      media(
+        "(max-width: 992px)",
+        [marginLeft((-96)->px), marginRight((-96)->px)],
+      ),
+    ]);
 
   let illustration =
     style([
@@ -60,63 +121,12 @@ module Styles = {
         [
           position(`absolute),
           marginBottom(0->px),
-          right((-16)->px),
+          right((-24)->px),
           bottom((-1.4)->vw),
         ],
       ),
       media("(min-width: 1440px)", [bottom((-22)->px)]),
     ]);
-
-  let menuNav = style([flex(1), alignItems(`flexEnd)]);
-
-  let menuList =
-    style([
-      justifyContent(`flexEnd),
-      flex(1),
-      flexDirection(`row),
-      flexWrap(`wrap),
-      media(
-        "(max-width: 768px)",
-        [marginTop(8->px), justifyContent(`center)],
-      ),
-    ]);
-
-  let menuLink =
-    style([
-      color(Theme.textColor),
-      opacity(0.9),
-      fontSize(17->px),
-      marginLeft(32->px),
-      position(`relative),
-      textDecoration(`none),
-      textTransform(`uppercase),
-      zIndex(1),
-      media(
-        "(max-width: 768px)",
-        [marginLeft(16->px), marginRight(16->px)],
-      ),
-      before([
-        unsafe("content", "''"),
-        position(`absolute),
-        borderRadius(2->px),
-        top(0->px),
-        bottom(4->px),
-        left((-4)->px),
-        right((-4)->px),
-        verticalAlign(`baseline),
-        zIndex(-1),
-        backgroundColor(hex("f2cc6c")),
-        transform(scaleY(0.)),
-        transformOrigin(50.->pct, 100.->pct),
-        transitionProperty("transform"),
-        transitionDuration(150),
-        transitionTimingFunction(`ease),
-      ]),
-      hover([before([transform(scaleY(0.4))])]),
-    ]);
-
-  let websiteTitle =
-    style([color(Theme.titleColor), fontSize(17->px), fontWeight(`bold)]);
 };
 
 let make = _children => {
@@ -154,13 +164,13 @@ let make = _children => {
                 </Link>
               </li>
               <li>
-                <Link href=Content.twitterUrl className=Styles.menuLink>
-                  {React.string("twitter")}
+                <Link href=Content.githubUrl className=Styles.menuLink>
+                  {React.string("github")}
                 </Link>
               </li>
               <li>
-                <Link href=Content.githubUrl className=Styles.menuLink>
-                  {React.string("github")}
+                <Link href=Content.twitterUrl className=Styles.menuLink>
+                  {React.string("twitter")}
                 </Link>
               </li>
             </View>
@@ -169,14 +179,14 @@ let make = _children => {
         <View className=Styles.heroContent>
           <View className=Styles.introContainer>
             <Title level=H1> {React.string({js|Hello !|js})} </Title>
-            <Space scale=3 />
+            <Space height=24 />
             <p className=Styles.text>
               {React.string(
                  "I am Mathieu Acthernoene (aka @zoontek), a front-end developer living in Paris, France. I currently work at BeOp, where we build a third-party solution for editors on the web, enabling them to create interactive.",
                )}
             </p>
           </View>
-          <Space direction=Horizontal scale=8 />
+          <Space height=32 width=48 />
           <View className=Styles.illustrationContainer>
             <img className=Styles.illustration src=illustration />
           </View>
