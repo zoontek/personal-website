@@ -90,9 +90,9 @@ module Styles = {
         position(`absolute),
         borderRadius(2->px),
         top(0->px),
-        bottom(4->px),
-        left((-4)->px),
-        right((-4)->px),
+        bottom(0.25->em),
+        left((-0.125)->em),
+        right((-0.125)->em),
         verticalAlign(`baseline),
         zIndex(-1),
         backgroundColor(hex("f2cc6c")),
@@ -112,8 +112,8 @@ module Styles = {
     style([
       paddingTop(32->px),
       paddingBottom(64->px),
-      Media.isMd([flex(4), paddingTop(6.5->vw), paddingBottom(11.->vw)]),
-      Media.isXl([paddingTop(80->px), paddingBottom(128->px)]),
+      Media.isMd([flex(4), paddingTop(6.5->vw), paddingBottom(12.->vw)]),
+      Media.isXl([paddingTop(80->px), paddingBottom(140->px)]),
     ]);
 
   let introTitle =
@@ -132,8 +132,8 @@ module Styles = {
       ]),
       Media.isXl([
         marginLeft(72->px),
-        marginRight((-96)->px),
-        marginBottom((-20)->px),
+        marginRight((-88)->px),
+        marginBottom((-16)->px),
       ]),
     ]);
 
@@ -147,17 +147,12 @@ module Styles = {
       ]),
     ]);
 
-  let page =
-    style([
-      paddingTop(48->px),
-      paddingBottom(16->px),
-      Media.isMd([paddingTop(72->px), paddingBottom(32->px)]),
-    ]);
+  let page = style([paddingTop(48->px), Media.isMd([paddingTop(64->px)])]);
 
   let section = style([marginBottom(48->px)]);
 
   let sectionTitle =
-    merge([title, style([fontSize(32->px), marginBottom(20->px)])]);
+    merge([title, style([fontSize(32->px), marginBottom(16->px)])]);
 
   let tools =
     style([
@@ -270,7 +265,7 @@ let make = _children => {
                  (index, tool) => {
                    let imgStyle =
                      Css.(style([backgroundColor(tool.bgColor)]));
-                   let isLast = Array.length(Content.tools) - 1 === index;
+                   let isLast = Array.length(Content.tools) === index + 1;
                    let linkStyle =
                      Css.(style([paddingRight(px(isLast ? 16 : 0))]));
 
@@ -294,11 +289,12 @@ let make = _children => {
              )}
           </View>
         </View>
-        <View role=Region className=Css.(merge([Styles.block, Styles.text]))>
+        <View
+          role=Region className={Css.merge([Styles.block, Styles.section])}>
           <h2 className=Styles.sectionTitle>
             {React.string("Things I work on")}
           </h2>
-          <View role=List>
+          <View role=List className=Styles.text>
             <View
               role=ListItem
               className=Css.(
@@ -317,7 +313,7 @@ let make = _children => {
                   className=Css.(
                     style([
                       backgroundColor(hex("4F0599")),
-                      marginRight(16->px),
+                      marginRight(12->px),
                       borderRadius(8->px),
                       height(24->px),
                       width(24->px),
@@ -355,7 +351,7 @@ let make = _children => {
                   className=Css.(
                     style([
                       backgroundColor(hex("4F0599")),
-                      marginRight(16->px),
+                      marginRight(12->px),
                       borderRadius(8->px),
                       height(24->px),
                       width(24->px),
@@ -393,7 +389,7 @@ let make = _children => {
                   className=Css.(
                     style([
                       backgroundColor(hex("4F0599")),
-                      marginRight(16->px),
+                      marginRight(12->px),
                       borderRadius(8->px),
                       height(24->px),
                       width(24->px),
@@ -416,7 +412,7 @@ let make = _children => {
             <View
               role=ListItem
               className=Css.(
-                style([maxWidth(496->px), marginBottom(16->px)])
+                style([maxWidth(40.->pct), marginBottom(16->px)])
               )>
               <View
                 className=Css.(
@@ -431,7 +427,7 @@ let make = _children => {
                   className=Css.(
                     style([
                       backgroundColor(hex("4F0599")),
-                      marginRight(16->px),
+                      marginRight(12->px),
                       borderRadius(8->px),
                       height(24->px),
                       width(24->px),
@@ -453,20 +449,25 @@ let make = _children => {
             </View>
           </View>
         </View>
-        // <View role=ListItem>
-        //   {React.string({js|Wulo mobile app / 2016 ↦ 2018|js})}
-        // </View>
-        // <View role=ListItem>
-        //   {React.string({js|Colisweb mobile app / 2015 ↦ 2016|js})}
-        // </View>
-        // <View role=ListItem>
-        //   {React.string({js|Onemore agency / 2012 ↦ 2015|js})}
-        // </View>
-        <View role=Region className=Styles.section>
-          <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
+        <View
+          role=Region className={Css.merge([Styles.block, Styles.section])}>
+          <h2 className=Styles.sectionTitle>
+            {React.string("Activities I enjoy")}
+          </h2>
+          <View role=List className=Styles.text>
+            <View role=ListItem> {React.string("Commuter bike")} </View>
+            <View role=ListItem> {React.string("Swimming")} </View>
+            <View role=ListItem> {React.string("Hiking")} </View>
+            <View role=ListItem> {React.string("Podcasting")} </View>
+            <View role=ListItem> {React.string("Climbing")} </View>
+          </View>
+        </View>
+        <View
+          role=Region className={Css.merge([Styles.block, Styles.section])}>
+          <h2 className=Styles.sectionTitle>
             {React.string("Talks I gave")}
           </h2>
-          <View role=List className={Css.merge([Styles.block, Styles.text])}>
+          <View role=List className=Styles.text>
             <View role=ListItem>
               {React.string(
                  "Modern services communication with gRPC @ ParisJS #74",
@@ -493,19 +494,42 @@ let make = _children => {
             </View>
           </View>
         </View>
-        <View role=Region className=Styles.section>
-          <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
-            {React.string("Activities I enjoy")}
-          </h2>
-          <View role=List className={Css.merge([Styles.block, Styles.text])}>
-            <View role=ListItem> {React.string("Commuter bike")} </View>
-            <View role=ListItem> {React.string("Swimming")} </View>
-            <View role=ListItem> {React.string("Hiking")} </View>
-            <View role=ListItem> {React.string("Podcasting")} </View>
-            <View role=ListItem> {React.string("Climbing")} </View>
-          </View>
-        </View>
-        <View role=ContentInfo />
+      </View>
+      <FlatList
+        separatorElement={<div />}
+        horizontal=true
+        data=[|10, 10, 10|]
+        keyExtractor={(index, item) =>
+          string_of_int(item) ++ "-" ++ string_of_int(index)
+        }
+        renderItem={(item, _index) =>
+          <div> {React.string(string_of_int(item))} </div>
+        }
+      />
+      <View
+        role=ContentInfo
+        className=Css.(
+          merge([
+            Styles.container,
+            Styles.block,
+            style([
+              marginTop(16->px),
+              paddingTop(16->px),
+              paddingBottom(16->px),
+              textAlign(`center),
+              lineHeight(`abs(1.4)),
+              fontSize(14->px),
+              color(Theme.textColor),
+              opacity(0.75),
+            ]),
+          ])
+        )>
+        <small>
+          {React.string("website written using Reason & ReasonReact")}
+        </small>
+        <Link href="#">
+          <small> {React.string("source available here")} </small>
+        </Link>
       </View>
     </>,
 };
