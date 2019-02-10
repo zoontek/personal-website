@@ -5,8 +5,8 @@ let component = React.statelessComponent("FlatList");
 module Styles = {
   open Css;
 
-  let horizontal = style([flexDirection(`row)]);
-  let vertical = style([flexDirection(`column)]);
+  let horizontal = style([flexDirection(`row), overflowY(`auto)]);
+  let vertical = style([flexDirection(`column), overflowX(`auto)]);
 };
 
 let make =
@@ -31,7 +31,6 @@ let make =
          Array.mapWithIndex(
            data,
            (index, item) => {
-             let element = renderItem(index, item);
              let separatorElement =
                Array.length(data) === index + 1 ?
                  React.null : separatorElement;
@@ -39,7 +38,7 @@ let make =
              React.createElement(
                React.fragment,
                ~props={"key": keyExtractor(index, item)},
-               [|element, separatorElement|],
+               [|renderItem(index, item), separatorElement|],
              );
            },
          ),

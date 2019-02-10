@@ -156,9 +156,6 @@ module Styles = {
 
   let tools =
     style([
-      flexDirection(`row),
-      overflowX(`auto),
-      overflowY(`visible),
       unsafe("WebkitOverflowScrolling", "touch"),
       unsafe("scrollSnapType", "x mandatory"),
       Media.isMd([paddingLeft(16->px), paddingRight(16->px)]),
@@ -258,36 +255,30 @@ let make = _children => {
           <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
             {React.string("Things I work with")}
           </h2>
-          <View role=List className={Css.merge([Styles.text, Styles.tools])}>
-            {React.array(
-               Array.mapWithIndex(
-                 Content.tools,
-                 (index, tool) => {
-                   let imgStyle =
-                     Css.(style([backgroundColor(tool.bgColor)]));
-                   let isLast = Array.length(Content.tools) === index + 1;
-                   let linkStyle =
-                     Css.(style([paddingRight(px(isLast ? 16 : 0))]));
+          <FlatList
+            className={Css.merge([Styles.text, Styles.tools])}
+            data=Content.tools
+            horizontal=true
+            keyExtractor={(_index, tool) => tool.name}
+            renderItem={(index, tool) => {
+              let logoStyle = Css.(style([backgroundColor(tool.bgColor)]));
+              let isLast = Array.length(Content.tools) === index + 1;
+              let style = Css.(style([paddingRight(px(isLast ? 16 : 0))]));
 
-                   <View
-                     key={tool.name}
-                     role=ListItem
-                     className={Css.merge([Styles.tool, linkStyle])}>
-                     <Link href={tool.linkHref} className=Styles.flexed>
-                       <img
-                         src={tool.logoSrc}
-                         alt={tool.name ++ " logo"}
-                         className={Css.merge([Styles.toolLogo, imgStyle])}
-                       />
-                     </Link>
-                     <span className=Styles.toolName>
-                       {React.string(tool.name)}
-                     </span>
-                   </View>;
-                 },
-               ),
-             )}
-          </View>
+              <View role=ListItem className={Css.merge([Styles.tool, style])}>
+                <Link href={tool.linkHref} className=Styles.flexed>
+                  <img
+                    src={tool.logoSrc}
+                    className={Css.merge([Styles.toolLogo, logoStyle])}
+                    alt={tool.name ++ " logo"}
+                  />
+                </Link>
+                <span className=Styles.toolName>
+                  {React.string(tool.name)}
+                </span>
+              </View>;
+            }}
+          />
         </View>
         <View
           role=Region className={Css.merge([Styles.block, Styles.section])}>
@@ -495,17 +486,6 @@ let make = _children => {
           </View>
         </View>
       </View>
-      <FlatList
-        separatorElement={<div />}
-        horizontal=true
-        data=[|10, 10, 10|]
-        keyExtractor={(index, item) =>
-          string_of_int(item) ++ "-" ++ string_of_int(index)
-        }
-        renderItem={(item, _index) =>
-          <div> {React.string(string_of_int(item))} </div>
-        }
-      />
       <View
         role=ContentInfo
         className=Css.(
