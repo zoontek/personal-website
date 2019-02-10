@@ -176,7 +176,6 @@ module Styles = {
   let toolLogo =
     style([
       borderRadius(8->px),
-      marginBottom(8->px),
       height(96->px),
       width(96->px),
       transforms([scaleX(1.), scaleY(1.)]),
@@ -186,6 +185,8 @@ module Styles = {
       transitionTimingFunction(`easeIn),
       Media.isHover([transforms([scaleX(0.95), scaleY(0.95)])]),
     ]);
+
+  let toolName = style([marginTop(8->px)]);
 };
 
 let make = _children => {
@@ -271,7 +272,9 @@ let make = _children => {
                          className={Css.merge([Styles.toolLogo, imgStyle])}
                        />
                      </Link>
-                     {React.string(tool.name)}
+                     <span className=Styles.toolName>
+                       {React.string(tool.name)}
+                     </span>
                    </View>;
                  },
                ),
@@ -298,26 +301,26 @@ let make = _children => {
           <View role=List className={Css.merge([Styles.block, Styles.text])}>
             <View role=ListItem>
               {React.string(
-                 "Modern services communication with gRPC (ParisJS)",
+                 "Modern services communication with gRPC @ ParisJS #74",
                )}
             </View>
             <View role=ListItem>
               {React.string(
-                 "Enhance your JavaScript with Flow (Algolia TechLunch, Take Off Talks)",
+                 "Enhance your JavaScript with Flow @ Algolia TechLunch #17, Take Off Talks #11/17",
                )}
             </View>
             <View role=ListItem>
-              {React.string("Your first React Native app (ChtiJS #16)")}
+              {React.string("Your first React Native app @ ChtiJS #16")}
             </View>
             <View role=ListItem>
-              {React.string("Handle your app state with Redux (ChtiJS #15)")}
+              {React.string("Handle your app state with Redux @ ChtiJS #15")}
             </View>
             <View role=ListItem>
-              {React.string("Electron presentation (ChtiJS #14)")}
+              {React.string("Electron presentation @ ChtiJS #14")}
             </View>
             <View role=ListItem>
               {React.string(
-                 "React Motion: animations done right (WelshDesign #7)",
+                 "React Motion: animations done right @ WelshDesign #7",
                )}
             </View>
           </View>

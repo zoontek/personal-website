@@ -38,14 +38,8 @@ let tools = [|
     linkHref: "https://grpc.io",
   },
   {
-    name: "Flow",
-    bgColor: Css.hex("323446"),
-    logoSrc: flowLogo,
-    linkHref: "https://flow.org",
-  },
-  {
     name: "JavaScript",
-    bgColor: Css.hex("f7e141"),
+    bgColor: Css.hex("f6df31"),
     logoSrc: jsLogo,
     linkHref: "https://developer.mozilla.org/docs/Web/JavaScript",
   },
@@ -54,6 +48,12 @@ let tools = [|
     bgColor: Css.hex("2687d1"),
     logoSrc: tsLogo,
     linkHref: "https://www.typescriptlang.org",
+  },
+  {
+    name: "Flow",
+    bgColor: Css.hex("323446"),
+    logoSrc: flowLogo,
+    linkHref: "https://flow.org",
   },
   {
     name: "Sketch",
