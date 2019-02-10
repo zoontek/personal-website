@@ -56,7 +56,7 @@ let make =
         }
       }
       ?className>
-      {children[0]->Option.getWithDefault(React.null)}
+      ...children
     </a>;
   },
 };

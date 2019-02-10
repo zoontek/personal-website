@@ -102,7 +102,6 @@ global(
     flexDirection(`column),
     flexGrow(1.),
     overflowX(`hidden),
-    padding(16->px),
     width(100.->pct),
   ],
 );

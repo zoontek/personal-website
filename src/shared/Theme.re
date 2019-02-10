@@ -6,9 +6,6 @@ let monospaceFontFamily = "SFMono-Regular, Consolas, \"Liberation Mono\", Menlo,
 let primaryColor = hex("d3e8e1");
 let textColor = hex("626174");
 let titleColor = hex("3c3c4e");
-let whiteColor = hex("f4f6f6");
+let whiteColor = hex("fcfcfc");
 
 let baseFontSize = 18->px;
-
-let smBreakPoint = "(min-width: 768px)";
-let xlBreakPoint = "(min-width: 1440px)";

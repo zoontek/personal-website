@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96px" height="96px" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>flow</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="16.1074159%" y1="58.1870482%" x2="72.7087331%" y2="72.8896084%" id="linearGradient-1">
+            <stop stop-color="#FFD441" offset="0%"></stop>
+            <stop stop-color="#FFB047" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="70.2130942%" y1="65.7967809%" x2="100%" y2="0%" id="linearGradient-2">
+            <stop stop-color="#FFD754" offset="0%"></stop>
+            <stop stop-color="#FFB532" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="22.1778859%" y1="66.1379895%" x2="22.1778855%" y2="9.31617093%" id="linearGradient-3">
+            <stop stop-color="#FFD642" offset="0%"></stop>
+            <stop stop-color="#FFD441" offset="0%"></stop>
+            <stop stop-color="#FFB532" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="88.9529566%" y1="24.2984871%" x2="12.5786107%" y2="6.96628778%" id="linearGradient-4">
+            <stop stop-color="#FFD441" offset="0%"></stop>
+            <stop stop-color="#FFA829" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(22.157729, 16.000000)" id="Path">
+            <polyline fill-opacity="0.7" fill="#FFDF51" points="40.0674322 58.6710411 40.0674322 43.1773879 24.698145 43.1773879 40.0674322 58.6710411"></polyline>
+            <polyline fill-opacity="0.7" fill="#FF8900" points="41.7920001 49.886284 41.7920001 33.1291861 25.1695647 33.1291861 41.7920001 49.886284"></polyline>
+            <polyline fill-opacity="0.699999988" fill="url(#linearGradient-1)" points="31.6971609 43.1769842 31.6971609 59.934082 48.3195962 59.934082 31.6971609 43.1769842"></polyline>
+            <polyline fill-opacity="0.7" fill="#FFDF4F" points="38.3174258 34.2515078 38.3174258 20.9972493 25.1691609 20.9972493 38.3174258 34.2515078"></polyline>
+            <polyline fill-opacity="0.799999952" fill="url(#linearGradient-2)" points="44.5597476 31.0914827 44.5597476 14.3343849 27.9373122 14.3343849 44.5597476 31.0914827"></polyline>
+            <polyline fill-opacity="0.8" fill="url(#linearGradient-3)" points="16.2275331 0 16.2275331 16.7570978 32.8499684 16.7570978 16.2275331 0"></polyline>
+            <polyline fill-opacity="0.879999995" fill="url(#linearGradient-4)" points="20.126284 26.2460568 20.126284 9.48895898 0.0256403786 9.48895898 16.5762019 26.249489 20.126284 26.2460568"></polyline>
+            <polyline fill-opacity="0.7" fill="#FFB700" points="20.126284 59.8438359 20.126284 39.570978 0.0256403786 39.570978 20.126284 59.8438359"></polyline>
+            <polyline fill-opacity="0.5" fill="#FFB700" points="20.1307255 43.0536278 20.1307255 26.2965299 3.50829023 26.2965299 20.1307255 43.0536278"></polyline>
+            <polyline fill-opacity="0.7" fill="#FFCD25" points="25.168959 20.9968454 25.168959 37.7539433 41.7915962 37.7539433 25.168959 20.9968454"></polyline>
+            <polyline fill-opacity="0.700000048" fill="#FF8900" points="20.0887319 22.8831293 20.0887319 6.12603155 3.46609463 6.12603155 20.0887319 22.8831293"></polyline>
+            <polyline fill-opacity="0.7" fill="#FF8900" points="24.698145 43.1769842 24.698145 59.934082 41.3207824 59.934082 24.698145 43.1769842"></polyline>
+        </g>
+    </g>
+</svg>
