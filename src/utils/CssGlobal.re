@@ -1,21 +1,33 @@
 open Css;
 
 [@bs.module]
-external karmilla: string = "../static/fonts/Karmilla-Regular.woff";
+external karmillaRegular: string = "../static/fonts/Karmilla-Regular.woff";
 [@bs.module]
-external playfair: string = "../static/fonts/PlayfairDisplay-Bold.woff";
+external karmillaBold: string = "../static/fonts/Karmilla-Bold.woff";
+
+[@bs.module]
+external playfairDisplayBold: string =
+  "../static/fonts/PlayfairDisplay-Bold.woff";
 
 fontFace(
   ~fontFamily="Karmilla",
-  ~src=[url(karmilla)],
+  ~src=[url(karmillaRegular)],
   ~fontStyle=`normal,
   ~fontWeight=`num(400),
   (),
 );
 
 fontFace(
-  ~fontFamily="Playfair",
-  ~src=[url(playfair)],
+  ~fontFamily="Karmilla",
+  ~src=[url(karmillaBold)],
+  ~fontStyle=`normal,
+  ~fontWeight=`num(700),
+  (),
+);
+
+fontFace(
+  ~fontFamily="PlayfairDisplay",
+  ~src=[url(playfairDisplayBold)],
   ~fontStyle=`normal,
   ~fontWeight=`num(700),
   (),

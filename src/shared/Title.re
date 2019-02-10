@@ -9,7 +9,7 @@ module Styles = {
 
   let base =
     style([
-      fontFamily("Playfair"),
+      fontFamily("PlayfairDisplay"),
       fontWeight(`num(700)),
       color(Theme.titleColor),
       lineHeight(`abs(1.2)),

@@ -1,6 +1,7 @@
 open Belt;
 
 [@bs.module] external illustration: string = "./static/media/illustration.svg";
+[@bs.module] external scaleway: string = "./static/media/scaleway.svg";
 
 type state = {email: string};
 
@@ -30,7 +31,7 @@ module Styles = {
     style([
       color(Theme.titleColor),
       display(`flex),
-      fontFamily("Playfair"),
+      fontFamily("PlayfairDisplay"),
       fontWeight(`num(700)),
       lineHeight(`abs(1.2)),
     ]);
@@ -109,10 +110,10 @@ module Styles = {
 
   let introContainer =
     style([
-      paddingTop(48->px),
+      paddingTop(32->px),
       paddingBottom(64->px),
-      Media.isMd([flex(4), paddingTop(8.->vw), paddingBottom(16.->vw)]),
-      Media.isXl([paddingTop(120->px), paddingBottom(160->px)]),
+      Media.isMd([flex(4), paddingTop(6.5->vw), paddingBottom(11.->vw)]),
+      Media.isXl([paddingTop(80->px), paddingBottom(128->px)]),
     ]);
 
   let introTitle =
@@ -130,20 +131,27 @@ module Styles = {
         marginBottom((-1.5)->vw),
       ]),
       Media.isXl([
-        flex(6),
         marginLeft(72->px),
         marginRight((-96)->px),
         marginBottom((-20)->px),
       ]),
     ]);
 
-  let image = style([Media.isMd([position(`absolute), bottom(0->px)])]);
+  let image =
+    style([
+      Media.isMd([
+        position(`absolute),
+        bottom(0->px),
+        right(0->px),
+        maxHeight(384->px),
+      ]),
+    ]);
 
   let page =
     style([
       paddingTop(48->px),
       paddingBottom(16->px),
-      Media.isMd([paddingTop(96->px), paddingBottom(64->px)]),
+      Media.isMd([paddingTop(72->px), paddingBottom(32->px)]),
     ]);
 
   let section = style([marginBottom(48->px)]);
@@ -241,7 +249,11 @@ let make = _children => {
               </p>
             </View>
             <View className=Styles.imageContainer>
-              <img className=Styles.image src=illustration />
+              <img
+                alt="website main illustration"
+                src=illustration
+                className=Styles.image
+              />
             </View>
           </View>
         </View>
@@ -269,6 +281,7 @@ let make = _children => {
                      <Link href={tool.linkHref} className=Styles.flexed>
                        <img
                          src={tool.logoSrc}
+                         alt={tool.name ++ " logo"}
                          className={Css.merge([Styles.toolLogo, imgStyle])}
                        />
                      </Link>
@@ -281,19 +294,174 @@ let make = _children => {
              )}
           </View>
         </View>
-        <View role=Region className=Styles.section>
-          <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
+        <View role=Region className=Css.(merge([Styles.block, Styles.text]))>
+          <h2 className=Styles.sectionTitle>
             {React.string("Things I work on")}
           </h2>
-          <View role=List className={Css.merge([Styles.block, Styles.text])}>
-            <View role=ListItem>
-              {React.string("Scaleway Control Panel")}
+          <View role=List>
+            <View
+              role=ListItem
+              className=Css.(
+                style([maxWidth(496->px), marginBottom(16->px)])
+              )>
+              <View
+                className=Css.(
+                  style([
+                    flexDirection(`row),
+                    marginBottom(4->px),
+                    alignItems(`center),
+                  ])
+                )>
+                <img
+                  src=scaleway
+                  className=Css.(
+                    style([
+                      backgroundColor(hex("4F0599")),
+                      marginRight(16->px),
+                      borderRadius(8->px),
+                      height(24->px),
+                      width(24->px),
+                    ])
+                  )
+                />
+                <span
+                  className=Css.(
+                    style([fontWeight(`bold), color(Theme.titleColor)])
+                  )>
+                  {React.string({js|Scaleway control panel / 2018|js})}
+                </span>
+              </View>
+              <p>
+                {React.string(
+                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+                 )}
+              </p>
             </View>
-            <View role=ListItem> {React.string("Wulo mobile app")} </View>
-            <View role=ListItem> {React.string("Colisweb mobile app")} </View>
-            <View role=ListItem> {React.string("Onemore agency")} </View>
+            <View
+              role=ListItem
+              className=Css.(
+                style([maxWidth(496->px), marginBottom(16->px)])
+              )>
+              <View
+                className=Css.(
+                  style([
+                    flexDirection(`row),
+                    marginBottom(4->px),
+                    alignItems(`center),
+                  ])
+                )>
+                <img
+                  src=scaleway
+                  className=Css.(
+                    style([
+                      backgroundColor(hex("4F0599")),
+                      marginRight(16->px),
+                      borderRadius(8->px),
+                      height(24->px),
+                      width(24->px),
+                    ])
+                  )
+                />
+                <span
+                  className=Css.(
+                    style([fontWeight(`bold), color(Theme.titleColor)])
+                  )>
+                  {React.string({js|Wulo mobile app / 2016 ↦ 2018|js})}
+                </span>
+              </View>
+              <p>
+                {React.string(
+                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+                 )}
+              </p>
+            </View>
+            <View
+              role=ListItem
+              className=Css.(
+                style([maxWidth(496->px), marginBottom(16->px)])
+              )>
+              <View
+                className=Css.(
+                  style([
+                    flexDirection(`row),
+                    marginBottom(4->px),
+                    alignItems(`center),
+                  ])
+                )>
+                <img
+                  src=scaleway
+                  className=Css.(
+                    style([
+                      backgroundColor(hex("4F0599")),
+                      marginRight(16->px),
+                      borderRadius(8->px),
+                      height(24->px),
+                      width(24->px),
+                    ])
+                  )
+                />
+                <span
+                  className=Css.(
+                    style([fontWeight(`bold), color(Theme.titleColor)])
+                  )>
+                  {React.string({js|Colisweb mobile app / 2015 ↦ 2016|js})}
+                </span>
+              </View>
+              <p>
+                {React.string(
+                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+                 )}
+              </p>
+            </View>
+            <View
+              role=ListItem
+              className=Css.(
+                style([maxWidth(496->px), marginBottom(16->px)])
+              )>
+              <View
+                className=Css.(
+                  style([
+                    flexDirection(`row),
+                    marginBottom(4->px),
+                    alignItems(`center),
+                  ])
+                )>
+                <img
+                  src=scaleway
+                  className=Css.(
+                    style([
+                      backgroundColor(hex("4F0599")),
+                      marginRight(16->px),
+                      borderRadius(8->px),
+                      height(24->px),
+                      width(24->px),
+                    ])
+                  )
+                />
+                <span
+                  className=Css.(
+                    style([fontWeight(`bold), color(Theme.titleColor)])
+                  )>
+                  {React.string({js|Onemore agency / 2012 ↦ 2015|js})}
+                </span>
+              </View>
+              <p>
+                {React.string(
+                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+                 )}
+              </p>
+            </View>
           </View>
         </View>
+        // <View role=ListItem>
+        //   {React.string({js|Wulo mobile app / 2016 ↦ 2018|js})}
+        // </View>
+        // <View role=ListItem>
+        //   {React.string({js|Colisweb mobile app / 2015 ↦ 2016|js})}
+        // </View>
+        // <View role=ListItem>
+        //   {React.string({js|Onemore agency / 2012 ↦ 2015|js})}
+        // </View>
         <View role=Region className=Styles.section>
           <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
             {React.string("Talks I gave")}
