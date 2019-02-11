@@ -176,9 +176,9 @@ module Styles = {
   let toolLogo = bgColor =>
     style([
       backgroundColor(bgColor),
-      borderRadius(8->px),
-      height(96->px),
-      width(96->px),
+      borderRadius(6->px),
+      height(80->px),
+      width(80->px),
       transforms([scaleX(1.), scaleY(1.)]),
       transformOrigin(50.->pct, 50.->pct),
       transitionProperty("transform"),
@@ -187,7 +187,8 @@ module Styles = {
       Media.isHover([transforms([scaleX(0.95), scaleY(0.95)])]),
     ]);
 
-  let toolName = style([marginTop(8->px), marginBottom(16->px)]);
+  let toolName =
+    style([fontSize(14->px), marginTop(4->px), marginBottom(16->px)]);
 
   let corporateItem = style([maxWidth(546->px)]);
 
@@ -197,7 +198,7 @@ module Styles = {
   let corporateLogo = bgColor =>
     style([
       backgroundColor(bgColor),
-      borderRadius(8->px),
+      borderRadius(6->px),
       height(24->px),
       width(24->px),
     ]);
@@ -311,7 +312,7 @@ let make = _children => {
         <Space h=32 />
         <View role=Region className=Styles.block>
           <h2 className=Styles.sectionTitle>
-            {React.string("Things I work on")}
+            {React.string("Things I worked on")}
           </h2>
           <Space h=24 />
           <FlatList
@@ -389,7 +390,7 @@ let make = _children => {
             }
           />
         </View>
-        <Space h=64 />
+        <Space h=56 />
       </View>
       <View role=ContentInfo className=Styles.footer>
         <small>
