@@ -188,7 +188,7 @@ module Styles = {
     ]);
 
   let toolName =
-    style([fontSize(14->px), marginTop(4->px), marginBottom(16->px)]);
+    style([fontSize(14->px), marginTop(6->px), marginBottom(16->px)]);
 
   let corporateItem = style([maxWidth(546->px)]);
 

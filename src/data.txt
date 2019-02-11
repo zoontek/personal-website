@@ -1,8 +1,0 @@
-      <li> {React.string("React Native")} </li>
-      <li> {React.string("React")} </li>
-      <li> {React.string("gRPC")} </li>
-      <li> {React.string("Jest")} </li>
-      <li> {React.string("Sketch")} </li>
-      <li> {React.string("JavaScript")} </li>
-      <li> {React.string("TypeScript")} </li>
-      <li> {React.string("Flow")} </li>
