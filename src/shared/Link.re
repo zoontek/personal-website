@@ -8,8 +8,8 @@ let make =
     (
       ~url=?,
       ~href,
-      ~className=?,
       ~activeClassName=?,
+      ~className=?,
       ~matchSubroutes=false,
       ~onClick=?,
       children,

@@ -30,15 +30,14 @@ let make =
       {React.array(
          Array.mapWithIndex(
            data,
-           (index, item) => {
+           (i, item) => {
              let separatorElement =
-               Array.length(data) === index + 1 ?
-                 React.null : separatorElement;
+               Array.length(data) === i + 1 ? React.null : separatorElement;
 
              React.createElement(
                React.fragment,
-               ~props={"key": keyExtractor(index, item)},
-               [|renderItem(index, item), separatorElement|],
+               ~props={"key": keyExtractor(i, item)},
+               [|renderItem(i, item), separatorElement|],
              );
            },
          ),

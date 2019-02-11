@@ -1,7 +1,6 @@
 open Belt;
 
 [@bs.module] external illustration: string = "./static/media/illustration.svg";
-[@bs.module] external scaleway: string = "./static/media/scaleway.svg";
 
 type state = {email: string};
 
@@ -36,6 +35,15 @@ module Styles = {
       lineHeight(`abs(1.2)),
     ]);
 
+  let smallTitle =
+    style([
+      display(`flex),
+      fontSize(Theme.baseFontSize),
+      color(Theme.titleColor),
+      lineHeight(`abs(1.4)),
+      fontWeight(`bold),
+    ]);
+
   let hero =
     style([
       backgroundColor(Theme.primaryColor),
@@ -56,36 +64,31 @@ module Styles = {
       ]),
     ]);
 
-  let siteTitle =
+  let menuNav =
     style([
-      color(Theme.titleColor),
-      display(`flex),
-      fontSize(Theme.baseFontSize),
-      fontWeight(`bold),
-      marginBottom(4->px),
-      Media.isMd([marginBottom(0->px)]),
+      marginTop(8->px),
+      flexShrink(1),
+      Media.isMd([marginTop(0->px)]),
     ]);
-
-  let menuNav = style([flexShrink(1)]);
 
   let menuList =
     style([
       flexDirection(`row),
       flexWrap(`wrap),
+      textTransform(`uppercase),
       Media.isMd([justifyContent(`flexEnd)]),
     ]);
 
   let menuLink =
     style([
       color(Theme.textColor),
+      position(`relative),
+      textDecoration(`none),
+      zIndex(1),
       letterSpacing(`normal),
       opacity(0.9),
       marginRight(16->px),
-      position(`relative),
-      textDecoration(`none),
-      textTransform(`uppercase),
-      zIndex(1),
-      before([
+      after([
         unsafe("content", "''"),
         position(`absolute),
         borderRadius(2->px),
@@ -102,7 +105,7 @@ module Styles = {
         transitionDuration(250),
         transitionTimingFunction(`ease),
       ]),
-      Media.isHover([before([transform(scaleY(0.4))])]),
+      Media.isHover([after([transform(scaleY(0.4))])]),
       Media.isMd([marginLeft(32->px), marginRight(0->px)]),
     ]);
 
@@ -116,8 +119,7 @@ module Styles = {
       Media.isXl([paddingTop(80->px), paddingBottom(140->px)]),
     ]);
 
-  let introTitle =
-    merge([title, style([fontSize(48->px), marginBottom(16->px)])]);
+  let introTitle = merge([title, style([fontSize(48->px)])]);
 
   let imageContainer =
     style([
@@ -149,10 +151,7 @@ module Styles = {
 
   let page = style([paddingTop(48->px), Media.isMd([paddingTop(64->px)])]);
 
-  let section = style([marginBottom(48->px)]);
-
-  let sectionTitle =
-    merge([title, style([fontSize(32->px), marginBottom(16->px)])]);
+  let sectionTitle = merge([title, style([fontSize(32->px)])]);
 
   let tools =
     style([
@@ -161,7 +160,7 @@ module Styles = {
       Media.isMd([paddingLeft(16->px), paddingRight(16->px)]),
     ]);
 
-  let tool =
+  let toolItem = last =>
     style([
       alignItems(`center),
       color(Theme.textColor),
@@ -170,11 +169,13 @@ module Styles = {
       borderRadius(8->px),
       textDecoration(`none),
       paddingLeft(16->px),
+      paddingRight(px(last ? 16 : 0)),
       unsafe("scrollSnapAlign", "start"),
     ]);
 
-  let toolLogo =
+  let toolLogo = bgColor =>
     style([
+      backgroundColor(bgColor),
       borderRadius(8->px),
       height(96->px),
       width(96->px),
@@ -186,7 +187,38 @@ module Styles = {
       Media.isHover([transforms([scaleX(0.95), scaleY(0.95)])]),
     ]);
 
-  let toolName = style([marginTop(8->px)]);
+  let toolName = style([marginTop(8->px), marginBottom(16->px)]);
+
+  let corporateItem = style([maxWidth(546->px)]);
+
+  let itemLine =
+    style([alignItems(`center), flexDirection(`row), marginBottom(4->px)]);
+
+  let corporateLogo = bgColor =>
+    style([
+      backgroundColor(bgColor),
+      borderRadius(8->px),
+      height(24->px),
+      width(24->px),
+    ]);
+
+  let corporateLink =
+    merge([smallTitle, style([display(`flex), textDecoration(`none)])]);
+
+  let footer =
+    merge([
+      container,
+      block,
+      style([
+        paddingTop(16->px),
+        paddingBottom(16->px),
+        textAlign(`center),
+        lineHeight(`abs(1.4)),
+        fontSize(14->px),
+        color(Theme.textColor),
+        opacity(0.75),
+      ]),
+    ]);
 };
 
 let make = _children => {
@@ -204,7 +236,7 @@ let make = _children => {
       <View className=Styles.hero>
         <View className={Css.merge([Styles.container, Styles.block])}>
           <View role=Banner className=Styles.header>
-            <h1 className=Styles.siteTitle>
+            <h1 className=Styles.smallTitle>
               {React.string(Content.siteTitle)}
             </h1>
             <View role=Navigation className=Styles.menuNav>
@@ -231,14 +263,11 @@ let make = _children => {
           </View>
           <View className=Styles.row>
             <View className=Styles.introContainer>
-              <h1 className=Styles.introTitle>
+              <span className=Styles.introTitle>
                 {React.string({js|Hello !|js})}
-              </h1>
-              <p className=Styles.text>
-                {React.string(
-                   "I am Mathieu Acthernoene (aka @zoontek), a front-end developer living in Paris, France. I currently work at BeOp, where we build a third-party solution for editors on the web, enabling them to create interactive.",
-                 )}
-              </p>
+              </span>
+              <Space h=16 />
+              <p className=Styles.text> {React.string(Content.introText)} </p>
             </View>
             <View className=Styles.imageContainer>
               <img
@@ -251,25 +280,24 @@ let make = _children => {
         </View>
       </View>
       <View role=Main className={Css.merge([Styles.container, Styles.page])}>
-        <View role=Region className=Styles.section>
+        <View role=Region>
           <h2 className={Css.merge([Styles.block, Styles.sectionTitle])}>
             {React.string("Things I work with")}
           </h2>
+          <Space h=24 />
           <FlatList
             className={Css.merge([Styles.text, Styles.tools])}
             data=Content.tools
             horizontal=true
-            keyExtractor={(_index, tool) => tool.name}
-            renderItem={(index, tool) => {
-              let logoStyle = Css.(style([backgroundColor(tool.bgColor)]));
-              let isLast = Array.length(Content.tools) === index + 1;
-              let style = Css.(style([paddingRight(px(isLast ? 16 : 0))]));
+            keyExtractor={(_i, tool) => tool.name}
+            renderItem={(i, tool) => {
+              let isLast = Array.length(Content.tools) === i + 1;
 
-              <View role=ListItem className={Css.merge([Styles.tool, style])}>
-                <Link href={tool.linkHref} className=Styles.flexed>
+              <View role=ListItem className={Styles.toolItem(isLast)}>
+                <Link href={tool.href} className=Styles.flexed>
                   <img
+                    className={Styles.toolLogo(tool.bgColor)}
                     src={tool.logoSrc}
-                    className={Css.merge([Styles.toolLogo, logoStyle])}
                     alt={tool.name ++ " logo"}
                   />
                 </Link>
@@ -280,236 +308,98 @@ let make = _children => {
             }}
           />
         </View>
-        <View
-          role=Region className={Css.merge([Styles.block, Styles.section])}>
+        <Space h=32 />
+        <View role=Region className=Styles.block>
           <h2 className=Styles.sectionTitle>
             {React.string("Things I work on")}
           </h2>
-          <View role=List className=Styles.text>
-            <View
-              role=ListItem
-              className=Css.(
-                style([maxWidth(496->px), marginBottom(16->px)])
-              )>
-              <View
-                className=Css.(
-                  style([
-                    flexDirection(`row),
-                    marginBottom(4->px),
-                    alignItems(`center),
-                  ])
-                )>
-                <img
-                  src=scaleway
-                  className=Css.(
-                    style([
-                      backgroundColor(hex("4F0599")),
-                      marginRight(12->px),
-                      borderRadius(8->px),
-                      height(24->px),
-                      width(24->px),
-                    ])
-                  )
-                />
-                <span
-                  className=Css.(
-                    style([fontWeight(`bold), color(Theme.titleColor)])
-                  )>
-                  {React.string({js|Scaleway control panel / 2018|js})}
-                </span>
+          <Space h=24 />
+          <FlatList
+            className=Styles.text
+            data=Content.experiences
+            separatorElement={<Space h=24 />}
+            keyExtractor={(_i, xp) => xp.title}
+            renderItem={(_i, xp) =>
+              <View role=ListItem className=Styles.corporateItem>
+                <View className=Styles.itemLine>
+                  <View className={Styles.corporateLogo(xp.bgColor)}>
+                    {xp.logoElement}
+                  </View>
+                  <Space w=12 />
+                  {switch (xp.href) {
+                   | Some(href) =>
+                     <Link href className=Styles.corporateLink>
+                       {React.string(xp.title)}
+                     </Link>
+                   | None =>
+                     <span className=Styles.corporateLink>
+                       {React.string(xp.title)}
+                     </span>
+                   }}
+                </View>
+                <p> {React.string(xp.description)} </p>
               </View>
-              <p>
-                {React.string(
-                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
-                 )}
-              </p>
-            </View>
-            <View
-              role=ListItem
-              className=Css.(
-                style([maxWidth(496->px), marginBottom(16->px)])
-              )>
-              <View
-                className=Css.(
-                  style([
-                    flexDirection(`row),
-                    marginBottom(4->px),
-                    alignItems(`center),
-                  ])
-                )>
-                <img
-                  src=scaleway
-                  className=Css.(
-                    style([
-                      backgroundColor(hex("4F0599")),
-                      marginRight(12->px),
-                      borderRadius(8->px),
-                      height(24->px),
-                      width(24->px),
-                    ])
-                  )
-                />
-                <span
-                  className=Css.(
-                    style([fontWeight(`bold), color(Theme.titleColor)])
-                  )>
-                  {React.string({js|Wulo mobile app / 2016 ↦ 2018|js})}
-                </span>
-              </View>
-              <p>
-                {React.string(
-                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
-                 )}
-              </p>
-            </View>
-            <View
-              role=ListItem
-              className=Css.(
-                style([maxWidth(496->px), marginBottom(16->px)])
-              )>
-              <View
-                className=Css.(
-                  style([
-                    flexDirection(`row),
-                    marginBottom(4->px),
-                    alignItems(`center),
-                  ])
-                )>
-                <img
-                  src=scaleway
-                  className=Css.(
-                    style([
-                      backgroundColor(hex("4F0599")),
-                      marginRight(12->px),
-                      borderRadius(8->px),
-                      height(24->px),
-                      width(24->px),
-                    ])
-                  )
-                />
-                <span
-                  className=Css.(
-                    style([fontWeight(`bold), color(Theme.titleColor)])
-                  )>
-                  {React.string({js|Colisweb mobile app / 2015 ↦ 2016|js})}
-                </span>
-              </View>
-              <p>
-                {React.string(
-                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
-                 )}
-              </p>
-            </View>
-            <View
-              role=ListItem
-              className=Css.(
-                style([maxWidth(40.->pct), marginBottom(16->px)])
-              )>
-              <View
-                className=Css.(
-                  style([
-                    flexDirection(`row),
-                    marginBottom(4->px),
-                    alignItems(`center),
-                  ])
-                )>
-                <img
-                  src=scaleway
-                  className=Css.(
-                    style([
-                      backgroundColor(hex("4F0599")),
-                      marginRight(12->px),
-                      borderRadius(8->px),
-                      height(24->px),
-                      width(24->px),
-                    ])
-                  )
-                />
-                <span
-                  className=Css.(
-                    style([fontWeight(`bold), color(Theme.titleColor)])
-                  )>
-                  {React.string({js|Onemore agency / 2012 ↦ 2015|js})}
-                </span>
-              </View>
-              <p>
-                {React.string(
-                   {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
-                 )}
-              </p>
-            </View>
-          </View>
+            }
+          />
         </View>
-        <View
-          role=Region className={Css.merge([Styles.block, Styles.section])}>
+        <Space h=48 />
+        <View role=Region className=Styles.block>
           <h2 className=Styles.sectionTitle>
             {React.string("Activities I enjoy")}
           </h2>
-          <View role=List className=Styles.text>
-            <View role=ListItem> {React.string("Commuter bike")} </View>
-            <View role=ListItem> {React.string("Swimming")} </View>
-            <View role=ListItem> {React.string("Hiking")} </View>
-            <View role=ListItem> {React.string("Podcasting")} </View>
-            <View role=ListItem> {React.string("Climbing")} </View>
-          </View>
+          <Space h=24 />
+          <FlatList
+            className=Styles.text
+            data=Content.activities
+            keyExtractor={(_i, activity) => activity.name}
+            renderItem={(_i, activity) =>
+              <View role=ListItem className=Styles.itemLine>
+                {activity.iconElement}
+                <Space w=12 />
+                {React.string(activity.name)}
+              </View>
+            }
+          />
         </View>
-        <View
-          role=Region className={Css.merge([Styles.block, Styles.section])}>
+        <Space h=48 />
+        <View role=Region className=Styles.block>
           <h2 className=Styles.sectionTitle>
             {React.string("Talks I gave")}
           </h2>
-          <View role=List className=Styles.text>
-            <View role=ListItem>
-              {React.string(
-                 "Modern services communication with gRPC @ ParisJS #74",
-               )}
-            </View>
-            <View role=ListItem>
-              {React.string(
-                 "Enhance your JavaScript with Flow @ Algolia TechLunch #17, Take Off Talks #11/17",
-               )}
-            </View>
-            <View role=ListItem>
-              {React.string("Your first React Native app @ ChtiJS #16")}
-            </View>
-            <View role=ListItem>
-              {React.string("Handle your app state with Redux @ ChtiJS #15")}
-            </View>
-            <View role=ListItem>
-              {React.string("Electron presentation @ ChtiJS #14")}
-            </View>
-            <View role=ListItem>
-              {React.string(
-                 "React Motion: animations done right @ WelshDesign #7",
-               )}
-            </View>
-          </View>
+          <Space h=24 />
+          <FlatList
+            className=Styles.text
+            data=Content.talks
+            keyExtractor={(_i, talk) => talk.title}
+            renderItem={(_i, talk) =>
+              <li className=Styles.itemLine>
+                <span ariaHidden=true> {React.string({js|▸ |js})} </span>
+                {switch (talk.href) {
+                 | Some(href) =>
+                   <Link href className=Styles.text>
+                     {React.string(talk.title)}
+                   </Link>
+                 | None =>
+                   <span className=Styles.text>
+                     {React.string(talk.title)}
+                   </span>
+                 }}
+                {React.string(" @ " ++ talk.event)}
+              </li>
+            }
+          />
         </View>
+        <Space h=64 />
       </View>
-      <View
-        role=ContentInfo
-        className=Css.(
-          merge([
-            Styles.container,
-            Styles.block,
-            style([
-              marginTop(16->px),
-              paddingTop(16->px),
-              paddingBottom(16->px),
-              textAlign(`center),
-              lineHeight(`abs(1.4)),
-              fontSize(14->px),
-              color(Theme.textColor),
-              opacity(0.75),
-            ]),
-          ])
-        )>
+      <View role=ContentInfo className=Styles.footer>
         <small>
-          {React.string("website written using Reason & ReasonReact")}
+          {React.string(
+             {js|website written using Reason & ReasonReact • |js},
+           )}
+          <Link href="#" className=Css.(style([color(Theme.textColor)]))>
+            {React.string("source available here")}
+          </Link>
         </small>
-        <Link href="#">
-          <small> {React.string("source available here")} </small>
-        </Link>
       </View>
     </>,
 };
