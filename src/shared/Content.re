@@ -11,7 +11,10 @@ let emailAddress = "zoontek@gmail.com";
 let githubUrl = "https://github.com/zoontek";
 let twitterUrl = "https://twitter.com/zoontek";
 
-let introText = {js|"I am Mathieu Acthernoene (aka @zoontek), a front-end developer living in Paris, France. I currently work at BeOp, where we build a third-party solution for editors on the web, enabling them to create interactive."|js};
+let introParagraphs = [|
+  {js|I am Mathieu Acthernoene, also known as @zoontek, a front-end and mobile developer living in Paris, France.|js},
+  {js|I enjoy using the React ecosystem, especially to develop iOS and Android native applications. If you are interested in creating one, feel free to contact me !|js},
+|];
 
 type tool = {
   name: string,
@@ -27,6 +30,12 @@ let tools = [|
     logoSrc: reactLogo,
     href: "https://reactjs.org",
   },
+  // {
+  //   name: "React Native",
+  //   bgColor: Css.hex("323446"),
+  //   logoSrc: reactLogo,
+  //   href: "https://facebook.github.io/react-native",
+  // },
   {
     name: "gRPC",
     bgColor: Css.hex("2da6b0"),
@@ -76,7 +85,7 @@ type experience = {
 let experiences = [|
   {
     title: {js|Scaleway control panel / 2018|js},
-    description: {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+    description: {js|A brand new customer dashboard using React web technologies for the french cloud provider.|js},
     href: Some("https://www.scaleway.com"),
     bgColor: Css.hex("4f0599"),
     logoElement:
@@ -94,7 +103,7 @@ let experiences = [|
   },
   {
     title: {js|Wulo mobile app / 2016 ↦ 2018|js},
-    description: {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+    description: {js|An on-demand taxi mobile application built using React Native.|js},
     href: Some("https://www.wulo.fr"),
     bgColor: Css.hex("11daeb"),
     logoElement:
@@ -117,7 +126,7 @@ let experiences = [|
   },
   {
     title: {js|Colisweb mobile app / 2015 ↦ 2016|js},
-    description: {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+    description: {js|A management application for carriers allowing them to ensure less than 2h or on-demand deliveries.|js},
     href: Some("https://www.colisweb.com"),
     bgColor: Css.hex("1ecae1"),
     logoElement:
@@ -137,7 +146,7 @@ let experiences = [|
   },
   {
     title: {js|Onemore agency / 2012 ↦ 2015|js},
-    description: {js|Franchement j'ai fait des trucs, c'était sympa c'était sympa c'était sympa c'était sympa c'était sympa.|js},
+    description: {js|A web agency created with friends. I was a designer back then.|js},
     href: None,
     bgColor: Css.hex("e75854"),
     logoElement:

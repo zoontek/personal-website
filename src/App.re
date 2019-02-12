@@ -114,12 +114,14 @@ module Styles = {
   let introContainer =
     style([
       paddingTop(32->px),
-      paddingBottom(64->px),
+      paddingBottom(56->px),
       Media.isMd([flex(4), paddingTop(6.5->vw), paddingBottom(12.->vw)]),
-      Media.isXl([paddingTop(80->px), paddingBottom(140->px)]),
+      Media.isXl([paddingTop(80->px), paddingBottom(132->px)]),
     ]);
 
   let introTitle = merge([title, style([fontSize(48->px)])]);
+
+  let introParagraph = merge([text, style([marginBottom(8->px)])]);
 
   let imageContainer =
     style([
@@ -268,7 +270,15 @@ let make = _children => {
                 {React.string({js|Hello !|js})}
               </span>
               <Space h=16 />
-              <p className=Styles.text> {React.string(Content.introText)} </p>
+              {React.array(
+                 Array.mapWithIndex(Content.introParagraphs, (i, content) =>
+                   <p
+                     key={"intro-p-" ++ string_of_int(i)}
+                     className=Styles.introParagraph>
+                     {React.string(content)}
+                   </p>
+                 ),
+               )}
             </View>
             <View className=Styles.imageContainer>
               <img
@@ -394,13 +404,16 @@ let make = _children => {
       </View>
       <View role=ContentInfo className=Styles.footer>
         <small>
-          {React.string(
-             {js|website written using Reason & ReasonReact • |js},
-           )}
-          <Link href="#" className=Css.(style([color(Theme.textColor)]))>
-            {React.string("source available here")}
-          </Link>
+          {React.string({js|website written using Reason & ReasonReact|js})}
         </small>
       </View>
+      // <small>
+      //   {React.string(
+      //      {js|website written using Reason & ReasonReact • |js},
+      //    )}
+      //   <Link href="#" className=Css.(style([color(Theme.textColor)]))>
+      //     {React.string("source available here")}
+      //   </Link>
+      // </small>
     </>,
 };
