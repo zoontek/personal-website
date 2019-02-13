@@ -12,10 +12,8 @@ type viewRole =
 
 let component = React.statelessComponent("View");
 
-module Styles = {
-  open Css;
-
-  let base =
+let baseStyle =
+  Css.(
     style([
       alignItems(`stretch),
       borderWidth(0->px),
@@ -31,16 +29,16 @@ module Styles = {
       // fix flexbox bugs
       minHeight(0->px),
       minWidth(0->px),
-    ]);
-};
+    ])
+  );
 
 let make = (~role=?, ~className=?, children) => {
   ...component,
   render: _self => {
     let className =
       switch (className) {
-      | Some(className) => Css.merge([Styles.base, className])
-      | _ => Styles.base
+      | Some(className) => Css.merge([baseStyle, className])
+      | _ => baseStyle
       };
 
     switch (role) {
