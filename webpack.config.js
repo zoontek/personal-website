@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs");
+
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
@@ -56,8 +58,9 @@ module.exports = getFaviconHtml(outputDir).then(faviconHtml => ({
   },
 
   plugins: [
+    new CopyWebpackPlugin([path.join(__dirname, "public")]),
     new HtmlWebpackPlugin({
-      template: path.join("src", "index.html"),
+      template: path.join("public", "index.html"),
       inject: true,
       faviconHtml,
       contentHtml: isProduction ? require("./__prerender").html : "",
