@@ -1,16 +1,15 @@
 const path = require("path");
 
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
 
-const outputDir = path.join(__dirname, "build");
 const isProduction = process.env.NODE_ENV === "production";
-
-const getAssetName = parentDir =>
-  process.env.NODE_ENV === "development"
-    ? "[path][name].[ext]"
-    : path.join("assets", parentDir, "[name].[hash].[ext]");
+const outputDir = path.join(__dirname, "build");
+const mediaDir = isProduction
+  ? path.join("static", "media", "[name].[hash].[ext]")
+  : "[path][name].[ext]";
 
 module.exports = {
   entry: path.join(__dirname, "src", "Index.bs.js"),
@@ -31,25 +30,22 @@ module.exports = {
         test: /\.(jpg|png|svg)$/,
         use: {
           loader: "file-loader",
-          options: {
-            name: getAssetName("images"),
-          },
+          options: { name: mediaDir },
         },
       },
       {
         test: /\.(woff|woff2)$/,
         use: {
           loader: "file-loader",
-          options: {
-            name: getAssetName("fonts"),
-          },
+          options: { name: mediaDir },
         },
       },
     ],
   },
   plugins: [
+    new CopyWebpackPlugin([path.join(__dirname, "public")]),
     new HtmlWebpackPlugin({
-      template: path.join("src", "index.html"),
+      template: path.join("public", "index.html"),
       inject: true,
       minify: isProduction && {
         collapseWhitespace: true,
