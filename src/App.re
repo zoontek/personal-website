@@ -21,7 +21,7 @@ module Styles = {
     style([
       paddingLeft(16->px),
       paddingRight(16->px),
-      Media.isMd([paddingLeft(32->px), paddingRight(32->px)]),
+      Media.whenMd([paddingLeft(32->px), paddingRight(32->px)]),
     ]);
 
   let text = style([fontSize(Theme.baseFontSize), color(Theme.textColor)]);
@@ -57,7 +57,7 @@ module Styles = {
       paddingRight(4->px),
       paddingTop(24->px),
       paddingBottom(24->px),
-      Media.isMd([
+      Media.whenMd([
         alignItems(`center),
         flexDirection(`row),
         justifyContent(`spaceBetween),
@@ -68,7 +68,7 @@ module Styles = {
     style([
       marginTop(8->px),
       flexShrink(1),
-      Media.isMd([marginTop(0->px)]),
+      Media.whenMd([marginTop(0->px)]),
     ]);
 
   let menuList =
@@ -76,7 +76,7 @@ module Styles = {
       flexDirection(`row),
       flexWrap(`wrap),
       textTransform(`uppercase),
-      Media.isMd([justifyContent(`flexEnd)]),
+      Media.whenMd([justifyContent(`flexEnd)]),
     ]);
 
   let menuLink =
@@ -105,18 +105,18 @@ module Styles = {
         transitionDuration(250),
         transitionTimingFunction(`ease),
       ]),
-      Media.isHover([after([transform(scaleY(0.4))])]),
-      Media.isMd([marginLeft(32->px), marginRight(0->px)]),
+      Media.whenHover([after([transform(scaleY(0.4))])]),
+      Media.whenMd([marginLeft(32->px), marginRight(0->px)]),
     ]);
 
-  let row = style([Media.isMd([flexDirection(`row)])]);
+  let row = style([Media.whenMd([flexDirection(`row)])]);
 
   let introContainer =
     style([
       paddingTop(32->px),
       paddingBottom(56->px),
-      Media.isMd([flex(4), paddingTop(6.5->vw), paddingBottom(12.->vw)]),
-      Media.isXl([paddingTop(80->px), paddingBottom(132->px)]),
+      Media.whenMd([flex(4), paddingTop(6.5->vw), paddingBottom(12.->vw)]),
+      Media.whenXl([paddingTop(80->px), paddingBottom(132->px)]),
     ]);
 
   let introTitle = merge([title, style([fontSize(48->px)])]);
@@ -128,13 +128,13 @@ module Styles = {
       marginLeft((-72)->px),
       marginRight((-72)->px),
       marginBottom((-2.5)->vw),
-      Media.isMd([
+      Media.whenMd([
         flex(6),
         marginLeft(0->px),
         marginRight((-7.5)->vw),
         marginBottom((-1.5)->vw),
       ]),
-      Media.isXl([
+      Media.whenXl([
         marginLeft(72->px),
         marginRight((-88)->px),
         marginBottom((-16)->px),
@@ -143,7 +143,7 @@ module Styles = {
 
   let image =
     style([
-      Media.isMd([
+      Media.whenMd([
         position(`absolute),
         bottom(0->px),
         right(0->px),
@@ -151,7 +151,8 @@ module Styles = {
       ]),
     ]);
 
-  let page = style([paddingTop(48->px), Media.isMd([paddingTop(64->px)])]);
+  let page =
+    style([paddingTop(48->px), Media.whenMd([paddingTop(64->px)])]);
 
   let sectionTitle = merge([title, style([fontSize(32->px)])]);
 
@@ -159,7 +160,7 @@ module Styles = {
     style([
       unsafe("WebkitOverflowScrolling", "touch"),
       unsafe("scrollSnapType", "x mandatory"),
-      Media.isMd([paddingLeft(16->px), paddingRight(16->px)]),
+      Media.whenMd([paddingLeft(16->px), paddingRight(16->px)]),
     ]);
 
   let toolItem = last =>
@@ -186,7 +187,7 @@ module Styles = {
       transitionProperty("transform"),
       transitionDuration(250),
       transitionTimingFunction(`easeIn),
-      Media.isHover([transforms([scaleX(0.95), scaleY(0.95)])]),
+      Media.whenHover([transforms([scaleX(0.95), scaleY(0.95)])]),
     ]);
 
   let toolName =
