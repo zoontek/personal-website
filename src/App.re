@@ -1,6 +1,9 @@
 open Belt;
 
+[%bs.raw {|require('normalize.css')|}];
 [@bs.module] external illustration: string = "./static/media/illustration.svg";
+
+include CssGlobal;
 
 type state = {email: string};
 

@@ -1,25 +1,37 @@
 const path = require("path");
-
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
 const outputDir = path.join(__dirname, "build");
-const mediaDir = isProduction
-  ? path.join("static", "media", "[name].[hash].[ext]")
-  : "[path][name].[ext]";
 
-module.exports = {
+if (isProduction) {
+  fs.mkdirSync(outputDir);
+}
+
+const fileLoaderOptions = {
+  name: isProduction
+    ? path.join("static", "media", "[name].[hash].[ext]")
+    : "[path][name].[ext]",
+};
+
+const getFaviconHtml = isProduction
+  ? require("./generate-favicon")
+  : () => Promise.resolve("");
+
+module.exports = getFaviconHtml(outputDir).then(faviconHtml => ({
   entry: path.join(__dirname, "src", "Index.bs.js"),
   mode: isProduction ? "production" : "development",
   devtool: isProduction ? "source-map" : "cheap-module-eval-source-map",
+
   output: {
     path: outputDir,
     sourceMapFilename: "bundle.[hash].js.map",
     filename: "bundle.[hash].js",
   },
+
   module: {
     rules: [
       {
@@ -30,23 +42,25 @@ module.exports = {
         test: /\.(jpg|png|svg)$/,
         use: {
           loader: "file-loader",
-          options: { name: mediaDir },
+          options: fileLoaderOptions,
         },
       },
       {
         test: /\.(woff|woff2)$/,
         use: {
           loader: "file-loader",
-          options: { name: mediaDir },
+          options: fileLoaderOptions,
         },
       },
     ],
   },
+
   plugins: [
-    new CopyWebpackPlugin([path.join(__dirname, "public")]),
     new HtmlWebpackPlugin({
-      template: path.join("public", "index.html"),
+      template: path.join("src", "index.html"),
       inject: true,
+      faviconHtml,
+      contentHtml: isProduction ? require("./__prerender").html : "",
       minify: isProduction && {
         collapseWhitespace: true,
         removeComments: true,
@@ -61,10 +75,11 @@ module.exports = {
       minify: isProduction,
     }),
   ],
+
   devServer: {
     compress: true,
     port: process.env.PORT || 8000,
     contentBase: outputDir,
     historyApiFallback: true,
   },
-};
+}));

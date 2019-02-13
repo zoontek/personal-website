@@ -1,65 +1,65 @@
+const path = require("path");
 const fs = require("fs");
-const pkg = require("./package.json");
 const favicons = require("favicons");
+const pkg = require("./package.json");
 
-const source = "./favicon.png";
+const faviconSrc = path.join(__dirname, "favicon.png");
 
-const configuration = {
-  path: "/", // Path for overriding default icons path. `string`
-  appName: "Mathieu Acthernoene", // Your application's name. `string`
-  appShortName: "Mathieu Acthernoene", // Your application's short_name. `string`. Optional. If not set, appName will be used
-  appDescription: "front-end and mobile developer", // Your application's description. `string`
-  developerName: "Mathieu Acthernoene", // Your (or your developer's) name. `string`
-  developerURL: "https://github.com/zoontek", // Your (or your developer's) URL. `string`
-  dir: "auto", // Primary text direction for name, short_name, and description
-  lang: "en-US", // Primary language for name and short_name
-  background: "#d3e8e1", // Background colour for flattened icons. `string`
-  theme_color: "#d3e8e1", // Theme color user for example in Android's task switcher. `string`
-  appleStatusBarStyle: "default", // Style for Apple status bar: "black-translucent", "default", "black". `string`
-  display: "browser", // Preferred display mode: "fullscreen", "standalone", "minimal-ui" or "browser". `string`
-  orientation: "portrait", // Default orientation: "any", "natural", "portrait" or "landscape". `string`
-  scope: "/", // set of URLs that the browser considers within your app
-  start_url: "/", // Start URL when launching the application from a device. `string`
-  version: pkg.version, // Your application's version string. `string`
-  logging: false, // Print logs to console? `boolean`
-  pixel_art: false, // Keeps pixels "sharp" when scaling up, for pixel art. Only supported in offline mode.
-  loadManifestWithCredentials: false, // Browsers don't send cookies when fetching a manifest, enable this to fix that. `boolean`
+const config = {
+  path: "/",
+  appShortName: "Mathieu Acthernoene",
+  appName: "Mathieu Acthernoene",
+  appDescription: "front-end and mobile developer",
+  developerName: pkg.author,
+  developerURL: "https://github.com/zoontek",
+  dir: "auto",
+  lang: "en-US",
+  background: "#d3e8e1",
+  theme_color: "#d3e8e1",
+  appleStatusBarStyle: "default",
+  display: "browser",
+  orientation: "portrait",
+  scope: "/",
+  start_url: "/",
+  version: pkg.version,
+  logging: false,
+  pixel_art: false,
+  loadManifestWithCredentials: false,
   icons: {
-    android: true, // Create Android homescreen icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    appleIcon: true, // Create Apple touch icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    appleStartup: false, // Create Apple startup images. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    coast: false, // Create Opera Coast icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    favicons: true, // Create regular favicons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    firefox: true, // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    windows: false, // Create Windows 8 tile icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-    yandex: false, // Create Yandex browser icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+    android: true,
+    appleStartup: false,
+    appleIcon: true,
+    coast: false,
+    favicons: true,
+    firefox: true,
+    windows: false,
+    yandex: false,
   },
 };
 
-favicons(source, configuration, (error, res) => {
-  if (error) {
-    return console.error(error.message);
-  }
+module.exports = outputDir =>
+  favicons(faviconSrc, config, (err, res) => {
+    if (err) {
+      return console.error(err.message);
+    }
 
-  res.images.forEach(({ contents, name }) =>
-    fs.writeFile(
-      __dirname + "/public/" + name,
-      contents,
-      "binary",
-      err => !err && console.log(`✅ ${name}`),
-    ),
-  );
+    res.images.forEach(({ contents, name }) => {
+      fs.writeFile(
+        path.join(outputDir, name),
+        contents,
+        "binary",
+        err => err && console.error(err.message),
+      );
+    });
 
-  res.files.forEach(({ contents, name }) =>
-    fs.writeFile(
-      __dirname + "/public/" + name,
-      contents,
-      "utf-8",
-      err => !err && console.log(`✅ ${name}`),
-    ),
-  );
+    res.files.forEach(({ contents, name }) => {
+      fs.writeFile(
+        path.join(outputDir, name),
+        contents,
+        "utf-8",
+        err => err && console.error(err.message),
+      );
+    });
 
-  const head = res.html.reduce((acc, h) => acc + h + "\r\n", "");
-  console.log("HTML:\r\n\r\n");
-  console.log(head);
-});
+    return res.html.join("");
+  });

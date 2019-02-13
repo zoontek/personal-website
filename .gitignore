@@ -7,3 +7,4 @@ npm-debug.log
 
 src/**/*.bs.js
 build/
+__prerender/
