@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
 const outputDir = path.join(__dirname, "build");
@@ -61,7 +62,6 @@ module.exports = getFaviconHtml(outputDir).then(faviconHtml => ({
     new CopyWebpackPlugin([path.join(__dirname, "public")]),
     new HtmlWebpackPlugin({
       template: path.join("public", "index.html"),
-      inject: true,
       faviconHtml,
       contentHtml: isProduction ? require("./__prerender").html : "",
       minify: isProduction && {
@@ -76,6 +76,9 @@ module.exports = getFaviconHtml(outputDir).then(faviconHtml => ({
     new MiniCssExtractPlugin(),
     new StyleExtHtmlWebpackPlugin({
       minify: isProduction,
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: "defer",
     }),
   ],
 
