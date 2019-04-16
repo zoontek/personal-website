@@ -13,7 +13,7 @@ let twitterUrl = "https://twitter.com/zoontek";
 
 let introParagraphs = [|
   {js|I am Mathieu Acthernoene, also known as @zoontek, a front-end and mobile developer living in Paris, France.|js},
-  {js|I enjoy using the React ecosystem, especially to develop iOS and Android native applications. If you are interested in creating one, feel free to contact me !|js},
+  {js|I enjoy using the React ecosystem, especially to develop iOS and Android native applications. I also like working on open source projects or giving public talks.|js},
 |];
 
 type tool = {
@@ -84,7 +84,21 @@ type experience = {
 
 let experiences = [|
   {
-    title: {js|Scaleway control panel / 2018|js},
+    title: {js|Swan / 2019 ↦ Present|js},
+    description: {js|A simple banking API for accounts, cards and IBANs on the fly.|js},
+    href: Some("https://swan.io"),
+    bgColor: Css.hex("212121"),
+    logoElement:
+      <svg height="24" width="24">
+        <path
+          d="M12.01 18.5c-2.86 0-4.7-1.54-4.92-3.99l-.03-.3h2.32l.04.23c.18 1.28 1.08 1.93 2.69 1.93 1.59 0 2.5-.7 2.5-1.8 0-1.06-.66-1.42-2.8-1.84l-.55-.12c-2.63-.54-3.8-1.37-3.8-3.53 0-2.14 1.91-3.58 4.6-3.58 2.44 0 4.32 1.45 4.51 3.67l.03.3h-2.3l-.03-.23c-.15-1.04-.94-1.63-2.33-1.63-1.33 0-2.18.6-2.18 1.47 0 .89.62 1.2 2.58 1.57l.79.15c2.58.52 3.8 1.44 3.8 3.68 0 2.4-2 4.02-4.92 4.02z"
+          fill="#fff"
+          fillRule="evenodd"
+        />
+      </svg>,
+  },
+  {
+    title: {js|Scaleway / 2018|js},
     description: {js|A brand new customer dashboard using React web technologies for the french cloud provider.|js},
     href: Some("https://www.scaleway.com"),
     bgColor: Css.hex("4f0599"),
@@ -102,7 +116,7 @@ let experiences = [|
       </svg>,
   },
   {
-    title: {js|Wulo mobile app / 2016 ↦ 2018|js},
+    title: {js|Wulo / 2016 ↦ 2018|js},
     description: {js|An on-demand taxi mobile application built using React Native.|js},
     href: Some("https://www.wulo.fr"),
     bgColor: Css.hex("11daeb"),
@@ -125,7 +139,7 @@ let experiences = [|
       </svg>,
   },
   {
-    title: {js|Colisweb mobile app / 2015 ↦ 2016|js},
+    title: {js|Colisweb / 2015 ↦ 2016|js},
     description: {js|A management application for carriers allowing them to ensure less than 2h or on-demand deliveries.|js},
     href: Some("https://www.colisweb.com"),
     bgColor: Css.hex("1ecae1"),
@@ -145,7 +159,7 @@ let experiences = [|
       </svg>,
   },
   {
-    title: {js|Onemore agency / 2012 ↦ 2015|js},
+    title: {js|Onemore / 2012 ↦ 2015|js},
     description: {js|A web agency created with friends. I was a designer back then.|js},
     href: None,
     bgColor: Css.hex("e75854"),
